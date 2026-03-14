@@ -1,0 +1,90 @@
+menu "user packages " 
+config libiio  
+	 bool "libiio"
+	 help
+	
+config libiio-tests  
+	 bool "libiio-tests"
+	 help
+	
+config evtest  
+	 bool "evtest"
+	 help
+	
+config gpio-demo  
+	 bool "gpio-demo"
+	 help
+	
+config iozone3  
+	 bool "iozone3"
+	 help
+	
+config iperf3  
+	 bool "iperf3"
+	 help
+	
+config jq  
+	 bool "jq"
+	 help
+	
+config ltrace  
+	 bool "ltrace"
+	 help
+	
+config memtester  
+	 bool "memtester"
+	 help
+	
+config minicom  
+	 bool "minicom"
+	 help
+	
+config nisl-achermann-branding  
+	 bool "nisl-achermann-branding"
+	 help
+	
+config peekpoke  
+	 bool "peekpoke"
+	 help
+	
+config perf  
+	 bool "perf"
+	 help
+	
+config picocom  
+	 bool "picocom"
+	 help
+	
+config python3-psutil  
+	 bool "python3-psutil"
+	 help
+	
+config python3-pyserial  
+	 bool "python3-pyserial"
+	 help
+	
+config python3-pyyaml  
+	 bool "python3-pyyaml"
+	 help
+	
+config stress-ng  
+	 bool "stress-ng"
+	 help
+	
+config tmux  
+	 bool "tmux"
+	 help
+	
+config ufis-bitstream-manager  
+	 bool "ufis-bitstream-manager"
+	 help
+	
+config ufis-hw-tools  
+	 bool "ufis-hw-tools"
+	 help
+	
+config usbutils  
+	 bool "usbutils"
+	 help
+	
+endmenu

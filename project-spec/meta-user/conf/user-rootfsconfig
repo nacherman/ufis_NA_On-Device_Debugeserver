@@ -1,0 +1,25 @@
+#Note: Mention Each package in individual line
+#These packages will get added into rootfs menu entry
+
+CONFIG_gpio-demo
+CONFIG_peekpoke
+CONFIG_nisl-achermann-branding
+CONFIG_ufis-bitstream-manager
+CONFIG_ufis-hw-tools
+CONFIG_iperf3
+CONFIG_jq
+CONFIG_tmux
+CONFIG_usbutils
+CONFIG_stress-ng
+CONFIG_python3-psutil
+CONFIG_python3-pyyaml
+CONFIG_libiio
+CONFIG_libiio-tests
+CONFIG_ltrace
+CONFIG_minicom
+CONFIG_picocom
+CONFIG_python3-pyserial
+CONFIG_memtester
+CONFIG_iozone3
+CONFIG_evtest
+CONFIG_perf

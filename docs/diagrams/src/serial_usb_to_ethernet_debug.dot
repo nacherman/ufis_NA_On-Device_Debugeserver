@@ -1,0 +1,30 @@
+digraph serial_usb_to_ethernet_debug {
+    rankdir=TB;
+    graph [fontname="Helvetica", fontsize=11, label="Serial/USB to Ethernet Debug Workflow", labelloc=t];
+    node [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#F8F9FA"];
+    edge [fontname="Helvetica", fontsize=9];
+
+    Start [shape=circle, label="Start", fillcolor="#DCFCE7"];
+    ConnectUsb [label="Connect USB-UART adapter\nHost -> Target UART"];
+    OpenSerial [label="Open serial terminal\n(minicom/picocom/screen)"];
+    Login [label="Login on target shell"];
+    CheckBoard [label="Run ufis_status\n(check FPGA + system state)"];
+    CheckUsb [label="Inspect USB stack\n(lsusb, dmesg, ttyUSB*)"];
+    CheckNet [label="Verify Ethernet link + IP\n(ethtool eth0, ifconfig/ip)"];
+    DebugPath [label="Choose debug channel"];
+
+    SerialDebug [label="Serial-focused debug\n(console logs, boot traces)", fillcolor="#FEF3C7"];
+    EthDebug [label="Ethernet-focused debug\n(SSH, iperf3, remote tools)", fillcolor="#DBEAFE"];
+    CrossCheck [label="Correlate serial + ethernet observations"];
+    FixLoop [label="Adjust config / retest"];
+    End [shape=doublecircle, label="Stable debug path", fillcolor="#DCFCE7"];
+
+    Start -> ConnectUsb -> OpenSerial -> Login -> CheckBoard -> CheckUsb -> CheckNet -> DebugPath;
+    DebugPath -> SerialDebug;
+    DebugPath -> EthDebug;
+    SerialDebug -> CrossCheck;
+    EthDebug -> CrossCheck;
+    CrossCheck -> FixLoop;
+    FixLoop -> CheckBoard;
+    CrossCheck -> End;
+}

@@ -1,0 +1,36 @@
+digraph hw_diagnostics_workflow {
+    rankdir=LR;
+    graph [fontname="Helvetica", fontsize=11, label="Hardware Diagnostics Workflow", labelloc=t];
+    node [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#F8F9FA"];
+    edge [fontname="Helvetica", fontsize=9];
+
+    User [label="User / Automation"];
+    Tools [label="UFIS HW Tools"];
+    Scan [label="ufis-hw-scan"];
+    Health [label="ufis-health"];
+    IRQ [label="ufis-irq-stat"];
+    Reg [label="ufis-reg"];
+    Mem [label="ufis-mem-bench"];
+    Logic [label="ufis-logic-monitor"];
+
+    SysPlatform [label="/sys/bus/platform/devices", shape=component, fillcolor="#ECFEFF"];
+    Xadc [label="/sys/bus/iio/devices/iio:device0", shape=component, fillcolor="#ECFEFF"];
+    ProcIrq [label="/proc/interrupts", shape=component, fillcolor="#ECFEFF"];
+    DevMem [label="/dev/mem", shape=component, fillcolor="#ECFEFF"];
+    Output [label="Console / JSON output", shape=note, fillcolor="#FEF3C7"];
+
+    User -> Tools;
+    Tools -> Scan;
+    Tools -> Health;
+    Tools -> IRQ;
+    Tools -> Reg;
+    Tools -> Mem;
+    Tools -> Logic;
+
+    Scan -> SysPlatform -> Output;
+    Health -> Xadc -> Output;
+    IRQ -> ProcIrq -> Output;
+    Reg -> DevMem -> Output;
+    Mem -> DevMem -> Output;
+    Logic -> DevMem -> Output;
+}

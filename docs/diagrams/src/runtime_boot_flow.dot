@@ -1,0 +1,22 @@
+digraph runtime_boot_flow {
+    rankdir=LR;
+    graph [fontname="Helvetica", fontsize=11, label="Runtime Boot and Service Flow", labelloc=t];
+    node [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#F8F9FA"];
+    edge [fontname="Helvetica", fontsize=9];
+
+    Boot [label="Power-on / Bootloader"];
+    Kernel [label="Linux kernel boot"];
+    Init [label="systemd init"];
+    Service [label="ufis-bitstream-manager.service"];
+    Shell [label="Login shell"];
+    Motd [label="/etc/motd branding"];
+    Status [label="ufis_status command"];
+    Tools [label="UFIS HW tools"];
+
+    Boot -> Kernel -> Init;
+    Init -> Service;
+    Init -> Shell;
+    Shell -> Motd;
+    Shell -> Status;
+    Shell -> Tools;
+}

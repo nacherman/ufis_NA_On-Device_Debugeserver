@@ -1,0 +1,56 @@
+digraph system_architecture {
+    rankdir=LR;
+    graph [fontname="Helvetica", fontsize=11, label="UFIS-NA System Architecture", labelloc=t];
+    node [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#F8F9FA"];
+    edge [fontname="Helvetica", fontsize=9, color="#4B5563"];
+
+    subgraph cluster_host {
+        label="External/Host Side";
+        color="#CBD5E1";
+        style=rounded;
+        HostPC [label="Host PC / Debug Laptop"];
+        RemoteClient [label="Bitstream Client"];
+    }
+
+    subgraph cluster_target {
+        label="UFIS-NA Target (PetaLinux)";
+        color="#93C5FD";
+        style=rounded;
+
+        SerialConsole [label="Serial Console\n(UART/USB adapter)"];
+        Eth0 [label="eth0 network interface"];
+        Shell [label="Shell Access\n(Serial or SSH)"];
+
+        BitstreamSvc [label="ufis-bitstream-manager.service"];
+        BitstreamSrv [label="ufis_bitstream_server.py"];
+        TempBit [label="/tmp/received_bitstream.bit", shape=note, fillcolor="#FEF3C7"];
+        Fpgautil [label="fpgautil -b"];
+        FpgaMgr [label="/sys/class/fpga_manager/fpga0"];
+        PL [label="Programmable Logic (FPGA)"];
+
+        HwTools [label="UFIS HW Tools CLI"];
+        Sysfs [label="/sys data", shape=component, fillcolor="#ECFEFF"];
+        Procfs [label="/proc/interrupts", shape=component, fillcolor="#ECFEFF"];
+        DevMem [label="/dev/mem", shape=component, fillcolor="#ECFEFF"];
+        Status [label="ufis_status + motd"];
+    }
+
+    HostPC -> SerialConsole [label="USB-UART cable"];
+    HostPC -> Eth0 [label="Ethernet / SSH"];
+    RemoteClient -> BitstreamSvc [label="TCP 5001"];
+
+    SerialConsole -> Shell;
+    Eth0 -> Shell [label="SSH"];
+    Shell -> HwTools;
+    Shell -> Status;
+
+    BitstreamSvc -> BitstreamSrv;
+    BitstreamSrv -> TempBit [label="save upload"];
+    BitstreamSrv -> Fpgautil [label="trigger load"];
+    Fpgautil -> FpgaMgr;
+    FpgaMgr -> PL [label="program bitstream"];
+
+    HwTools -> Sysfs;
+    HwTools -> Procfs;
+    HwTools -> DevMem;
+}

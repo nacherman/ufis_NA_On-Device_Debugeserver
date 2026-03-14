@@ -1,0 +1,11 @@
+[Unit]
+Description=UFIS-NA Bitstream Manager Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /usr/bin/ufis_bitstream_server.py
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target

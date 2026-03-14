@@ -1,0 +1,5 @@
+PETALINUX_VER=2025.2
+VALIDATE_HW_CHKSUM=1
+HARDWARE_PATH=/home/nils/Projekt_Deth/Projekt_Reverse_enginere_port/Projekt/fpga/projects/ufis_na_awg/out/ufis_na_awg.xsa
+HDF_EXT=xsa
+YOCTO_SDK=2446428a089f02f0af2cb0f9b8a1002c090c8efc55c794a9a3fc0002365992db

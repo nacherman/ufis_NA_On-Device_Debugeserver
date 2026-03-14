@@ -1,0 +1,13 @@
+[Unit]
+Description=UFIS network bootstrap (DHCP with static fallback)
+After=network-pre.target
+Wants=network-pre.target
+Before=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ufis_net_init
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

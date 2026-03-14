@@ -1,0 +1,17 @@
+digraph bitstream_upload_workflow {
+    rankdir=TB;
+    graph [fontname="Helvetica", fontsize=11, label="Bitstream Upload Workflow", labelloc=t];
+    node [fontname="Helvetica", fontsize=10, shape=box, style="rounded,filled", fillcolor="#F8F9FA"];
+    edge [fontname="Helvetica", fontsize=9];
+
+    Start [shape=circle, label="Start", fillcolor="#DCFCE7"];
+    Connect [label="Client connects to TCP :5001"];
+    Receive [label="ufis_bitstream_server.py\nreceives upload stream"];
+    Save [label="Write /tmp/received_bitstream.bit", shape=note, fillcolor="#FEF3C7"];
+    Load [label="Run: fpgautil -b /tmp/received_bitstream.bit"];
+    Check [label="FPGA manager updates state"];
+    Result [label="Success/Failure logged"];
+    End [shape=doublecircle, label="End", fillcolor="#DBEAFE"];
+
+    Start -> Connect -> Receive -> Save -> Load -> Check -> Result -> End;
+}

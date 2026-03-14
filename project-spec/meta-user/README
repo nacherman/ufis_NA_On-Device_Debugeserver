@@ -1,0 +1,60 @@
+UFIS-NA meta-user layer
+=======================
+
+This layer contains UFIS-specific customizations for the `ufis_na_linux`
+PetaLinux project.
+
+Main contents
+=============
+
+Applications (`recipes-apps`)
+-----------------------------
+
+- `ufis-bitstream-manager`
+  - Installs and enables `ufis-bitstream-manager.service`
+  - Runs `/usr/bin/ufis_bitstream_server.py` on boot (TCP port `5001`)
+  - Supports remote bitstream load through `fpgautil -b`
+
+- `ufis-hw-tools`
+  - Installs low-level diagnostics and monitoring tools:
+    - `ufis-hw-scan`
+    - `ufis-reg`
+    - `ufis-health`
+    - `ufis-mem-bench`
+    - `ufis-irq-stat`
+    - `ufis-logic-monitor`
+
+- `nisl-achermann-branding`
+  - Installs `/usr/bin/ufis_status`
+  - Installs `/usr/bin/ufis_net_init`
+  - Installs and enables `ufis-net-init.service` (DHCP with static fallback)
+
+Core file overrides (`recipes-core`)
+------------------------------------
+
+- `base-files` bbappend
+  - Installs custom `/etc/motd` banner (UFIS-NA branding)
+
+Board support (`recipes-bsp`)
+-----------------------------
+
+- Device tree append files and `system-user.dtsi`
+- U-Boot append with `platform-top.h` and `bsp.cfg`
+
+Kernel (`recipes-kernel`)
+-------------------------
+
+- Linux append file with optional `bsp.cfg`
+
+Rootfs integration
+==================
+
+UFIS packages are selected through:
+
+- `conf/user-rootfsconfig`
+
+Details and user-facing documentation are available at project root:
+
+- `../../README.md`
+- `../../docs/UFIS_TOOLS_REFERENCE.md`
+- `../../docs/UFIS_ARCHITECTURE.md`
